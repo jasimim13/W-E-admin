@@ -1,7 +1,7 @@
 {
-  "name": "@minimal/material-kit-react",
+  "name": "minimal/material-kit-react",
   "author": "minimals.cc",
-  "licence": "MIT",
+  "license": "MIT",
   "version": "1.8.0",
   "private": false,
   "scripts": {
@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.4.0",
-    "@vitejs/plugin-react-swc": "^3.4.0",
     "eslint": "^8.51.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
@@ -55,9 +54,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "prettier": "^3.0.3",
-    "vite": "^4.4.11",
-    "vite-plugin-checker": "^0.6.2"
     "prettier": "^3.0.3",
     "vite": "^4.4.11",
     "vite-plugin-checker": "^0.6.2"
