@@ -7,12 +7,20 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { EditorState, convertToRaw } from 'draft-js'
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Iconify from 'src/components/iconify';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
-
+import MUIRichTextEditor from 'mui-rte'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import React, { Component, PropTypes } from 'react';
 import { posts } from 'src/_mock/blog';
 import PostCard from '../post-card';
 import PostSort from '../post-sort';
@@ -21,6 +29,7 @@ import axiosInstance from 'src/api/axiosInstance';
 
 
 import AuthContext from 'src/context/AuthContext';
+import RichTextEditor from 'react-rte';
 
 export default function BlogView() {
   const [open, setOpen] = useState(false);
@@ -51,6 +60,7 @@ export default function BlogView() {
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
+
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
@@ -149,14 +159,23 @@ export default function BlogView() {
                 value={category}
                 onChange={handleCategoryChange}
               />
-              <TextField
+              {/* <TextField
                 label="Description"
                 variant="outlined"
                 multiline
                 rows={5}
                 value={description}
                 onChange={handleDescriptionChange}
-              />
+              /> */}
+              <div className='mb-[100px] h-[300px]'>
+                return <ReactQuill theme="snow" value={description} onChange={setDescription} />
+              </div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
               <Button
                 variant="contained"
                 component="label"

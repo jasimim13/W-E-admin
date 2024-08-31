@@ -105,6 +105,18 @@ export default function UserTableRow({
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
         </TableCell>
 
+
+        <TableCell>
+          {/* <Button variant="contained" size='small' color="primary" onClick={handleOpenModal}>
+            Edit
+          </Button> */}
+          {/* <br></br> */}
+          {/* <br></br> */}
+          <Button variant="contained" size='small' color="error">
+            Delete
+          </Button>
+        </TableCell>
+
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />

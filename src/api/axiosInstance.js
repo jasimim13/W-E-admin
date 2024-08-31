@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-//   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8000/api', // Your backend API URL
-  baseURL: 'https://plankton-app-ilfjo.ondigitalocean.app/api',
+  // baseURL: 'http://localhost:8080/api', // Your backend API URL
+  baseURL: 'https://wealth-and-equity-glk4i.ondigitalocean.app/api',
 });
 
 axiosInstance.interceptors.request.use(

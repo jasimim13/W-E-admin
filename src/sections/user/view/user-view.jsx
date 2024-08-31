@@ -17,7 +17,6 @@ import TablePagination from '@mui/material/TablePagination';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 
-
 // import { users } from 'src/_mock/user';
 
 import Iconify from 'src/components/iconify';
@@ -279,6 +278,7 @@ export default function UserPage() {
                   { id: 'role', label: 'Role' },
                   { id: 'isVerified', label: 'Phone Number', align: 'center' },
                   { id: 'status', label: 'Status' },
+                  { id: 'actions', label: 'Actions' },
                   { id: '' },
                 ]}
               />
@@ -296,7 +296,7 @@ export default function UserPage() {
                         role={row?.role}
                         status={row?.status}
                         company={row?.email}
-                        avatarUrl={row.profileImage ? row.profileImage : `/assets/images/avatars/avatar_${randomAvatarIndex}.jpg`}
+                        avatarUrl={row.profileImage && row.profileImage}
                         isVerified={row?.phone}
                         selected={selected.indexOf(row?.fullName) !== -1}
                         handleClick={(event) => handleClick(event, row?.fullName)}

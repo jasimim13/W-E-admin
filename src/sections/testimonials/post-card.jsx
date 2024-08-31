@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
 import { alpha } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -18,33 +17,11 @@ import SvgColor from 'src/components/svg-color';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const { name, createdAt } = post;
 
   const latestPostLarge = index === 0;
 
   const latestPost = index === 1 || index === 2;
-
-  const renderAvatar = (
-    <Avatar
-      alt={author.name}
-      src={author.avatarUrl}
-      sx={{
-        zIndex: 9,
-        width: 32,
-        height: 32,
-        position: 'absolute',
-        left: (theme) => theme.spacing(3),
-        bottom: (theme) => theme.spacing(-2),
-        ...((latestPostLarge || latestPost) && {
-          zIndex: 9,
-          top: 24,
-          left: 24,
-          width: 40,
-          height: 40,
-        }),
-      }}
-    />
-  );
 
   const renderTitle = (
     <Link
@@ -63,7 +40,7 @@ export default function PostCard({ post, index }) {
         }),
       }}
     >
-      {title}
+      {name}
     </Link>
   );
 
@@ -79,9 +56,9 @@ export default function PostCard({ post, index }) {
       }}
     >
       {[
-        { number: comment, icon: 'eva:message-circle-fill' },
-        { number: view, icon: 'eva:eye-fill' },
-        { number: share, icon: 'eva:share-fill' },
+        { number: 0, icon: 'eva:message-circle-fill' },
+        { number: 0, icon: 'eva:eye-fill' },
+        { number: 0, icon: 'eva:share-fill' },
       ].map((info, _index) => (
         <Stack
           key={_index}
@@ -103,8 +80,7 @@ export default function PostCard({ post, index }) {
   const renderCover = (
     <Box
       component="img"
-      alt={title}
-      src={cover}
+      src='https://www.freepik.com/free-photos-vectors/white'
       sx={{
         top: 0,
         width: 1,
@@ -176,7 +152,7 @@ export default function PostCard({ post, index }) {
         >
           {renderShape}
 
-          {renderAvatar}
+          {/* {renderAvatar} */}
 
           {renderCover}
         </Box>

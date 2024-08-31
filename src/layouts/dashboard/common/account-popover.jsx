@@ -29,6 +29,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const { logout, user } = useContext(AuthContext); // Get logout function from AuthContext
+  const [loggedInUser, setLoggedInUser] = useState({});
   const navigate = useNavigate(); // Initialize useNavigate
 
   const [users, setUsers] = useState(null);
@@ -36,6 +37,7 @@ export default function AccountPopover() {
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
+
 
   const handleClose = () => {
     setOpen(null);
@@ -45,6 +47,10 @@ export default function AccountPopover() {
     logout(); // Call logout function from AuthContext
     navigate('/login'); // Redirect to login page after logout
   };
+
+  useEffect(() => {
+    setLoggedInUser(JSON.parse(localStorage.getItem('user')));
+  }, [])
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -59,6 +65,8 @@ export default function AccountPopover() {
 
     fetchUsers();
   }, []);
+
+
 
 
   return (
@@ -77,7 +85,7 @@ export default function AccountPopover() {
       >
         <Avatar
           src={account.photoURL}
-          alt={user?.fullName}
+          alt={loggedInUser?.fullName}
           sx={{
             width: 36,
             height: 36,
@@ -105,10 +113,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.fullName}
+            {loggedInUser?.fullName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?.email}
+            {loggedInUser?.email}
           </Typography>
         </Box>
 

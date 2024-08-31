@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -31,9 +31,13 @@ import AuthContext from 'src/context/AuthContext';
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
   const { user } = useContext(AuthContext);
+  const [loggedInUser, setLoggedInUser] = useState({});
+
   const upLg = useResponsive('up', 'lg');
 
-  console.log(user);
+  useEffect(() => {
+    setLoggedInUser(JSON.parse(localStorage.getItem('user')));
+  }, [])
 
   useEffect(() => {
     if (openNav) {
@@ -58,10 +62,10 @@ export default function Nav({ openNav, onCloseNav }) {
       <Avatar src={account.photoURL} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{user?.fullName}</Typography>
+        <Typography variant="subtitle2">{loggedInUser?.fullName}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {user?.role}
+          {loggedInUser?.role}
         </Typography>
       </Box>
     </Box>
