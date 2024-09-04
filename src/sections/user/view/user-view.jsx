@@ -118,14 +118,14 @@ export default function UserPage() {
     }
 
     // Phone validation
-    // const phoneRegex = /^[0-9]{10}$/; // Adjust this regex as needed for your phone format
-    // if (!formPhone) {
-    //   setPhoneError('Phone number is required');
-    //   valid = false;
-    // } else if (!phoneRegex.test(formPhone)) {
-    //   setPhoneError('Invalid phone number format (e.g., 1234567890)');
-    //   valid = false;
-    // }
+    const phoneRegex = /^[0-9]{10}$/; // Adjust this regex as needed for your phone format
+    if (!formPhone) {
+      setPhoneError('Phone number is required');
+      valid = false;
+    } else if (!phoneRegex.test(formPhone)) {
+      setPhoneError('Invalid phone number format (e.g., 1234567890)');
+      valid = false;
+    }
 
     // Password validation
     if (!formPassword) {
