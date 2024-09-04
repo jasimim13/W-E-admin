@@ -118,14 +118,14 @@ export default function UserPage() {
     }
 
     // Phone validation
-    const phoneRegex = /^[0-9]{10}$/; // Adjust this regex as needed for your phone format
-    if (!formPhone) {
-      setPhoneError('Phone number is required');
-      valid = false;
-    } else if (!phoneRegex.test(formPhone)) {
-      setPhoneError('Invalid phone number format (e.g., 1234567890)');
-      valid = false;
-    }
+    // const phoneRegex = /^[0-9]{10}$/; // Adjust this regex as needed for your phone format
+    // if (!formPhone) {
+    //   setPhoneError('Phone number is required');
+    //   valid = false;
+    // } else if (!phoneRegex.test(formPhone)) {
+    //   setPhoneError('Invalid phone number format (e.g., 1234567890)');
+    //   valid = false;
+    // }
 
     // Password validation
     if (!formPassword) {
@@ -232,6 +232,9 @@ export default function UserPage() {
         setSnackbarMessage('User added successfully!');
         setSeverity('success');
         setSnackBarOpen(true);
+        const newUser = response.data.user;
+        setUsers((prev) => [...prev, newUser]);
+
       }
     } catch (error) {
       console.error('Error adding user:', error);
@@ -295,7 +298,7 @@ export default function UserPage() {
                         name={row?.fullName}
                         role={row?.role}
                         status={row?.status}
-                        company={row?.email}
+
                         avatarUrl={row.profileImage && row.profileImage}
                         isVerified={row?.phone}
                         selected={selected.indexOf(row?.fullName) !== -1}
@@ -322,7 +325,7 @@ export default function UserPage() {
                     <TextField id="outlined-basic" label="Heading" variant="outlined" />
                     <TextField id="outlined-basic" label="Description" variant="outlined" />
                     <Button variant="contained" color="inherit">
-                      Upload Image
+                      Upload Images
                     </Button>
                   </Stack>
                 </Box>

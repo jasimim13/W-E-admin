@@ -20,6 +20,9 @@ import Button from '@mui/material/Button';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import axiosInstance from 'src/api/axiosInstance';
+import AuthContext from 'src/context/AuthContext';
+import { useContext } from 'react';
+
 // ----------------------------------------------------------------------
 
 const style = {
@@ -47,15 +50,31 @@ export default function UserTableRow({
   const [openPopover, setOpenPopover] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [selectedID, setSelectedID] = useState(null);
+
+
+
   const [userData, setUserData] = useState([]);
 
   const handleOpenMenu = (event) => {
     setOpenPopover(event.currentTarget);
   };
 
+  const { token } = useContext(AuthContext); // Access login method from AuthContext
+
   const handleCloseMenu = () => {
     setOpenPopover(null);
   };
+
+  const handleOpenDeleteModal = (id) => {
+    setSelectedID(id)
+    setOpenDeleteModal(true)
+  }
+
+  const handleCloseDeleteModal = () => {
+    setOpenDeleteModal(false)
+  }
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -64,6 +83,21 @@ export default function UserTableRow({
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  const handleDeleteUser = async () => {
+    try {
+      setOpenDeleteModal(true)
+      const response = await axiosInstance.post(`/user/deleteUser/${selectedID}`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      console.log(response);
+      handleCloseDeleteModal()
+    } catch (error) {
+      console.error('Error deleting:', error);
+    }
+  }
 
   useEffect(() => {
     const fetchResultsById = async (id) => {
@@ -79,14 +113,16 @@ export default function UserTableRow({
     fetchResultsById(id)
   }, [])
 
+  console.log(openDeleteModal)
+
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected} onClick={handleOpenModal}>
+      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
         <TableCell padding="checkbox" onClick={(e) => e.stopPropagation()}>
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
+        <TableCell component="th" scope="row" padding="none" onClick={handleOpenModal}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
@@ -112,7 +148,7 @@ export default function UserTableRow({
           </Button> */}
           {/* <br></br> */}
           {/* <br></br> */}
-          <Button variant="contained" size='small' color="error">
+          <Button variant="contained" size='small' color="error" onClick={() => handleOpenDeleteModal(id)}>
             Delete
           </Button>
         </TableCell>
@@ -259,7 +295,7 @@ export default function UserTableRow({
                   display: 'inline-block',
                 }}
               >
-                $300,000
+                $ {userData?.education}
               </p>
             </Stack>
             <Stack spacing={1} mt={2} sx={{ marginRight: 2, marginBottom: 2 }}>
@@ -289,6 +325,36 @@ export default function UserTableRow({
               </p>
             </Stack>
           </Box>
+        </Box>
+      </Modal>
+      <Modal
+        open={openDeleteModal}
+        onClose={handleCloseDeleteModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} borderRadius={3}>
+          <Stack spacing={2} width={800}></Stack>
+          <div>
+            <p>Are you sure you want to delete this user?</p>
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ width: '150px', alignSelf: 'center' }}
+              onClick={handleDeleteUser}
+            >
+              Yes
+            </Button>
+            <Button
+              variant="contained"
+              color="inherit"
+              sx={{ width: '150px', alignSelf: 'center', marginLeft: '20px' }}
+              mr={4}
+              onClick={handleCloseDeleteModal}
+            >
+              No
+            </Button>
+          </div>
         </Box>
       </Modal>
     </>

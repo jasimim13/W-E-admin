@@ -88,6 +88,9 @@ export default function TestimonialView() {
         setSeverity('success');
         setSnackbarMessage('Testimonial added successfully!');
         setSnackBarOpen(true);
+        const newTestimonial = response.data.testimonial;
+        setTestimonials((prev) => [...prev, newTestimonial]);
+
       }
     } catch (error) {
       console.error('Error adding Testimonial:', error);

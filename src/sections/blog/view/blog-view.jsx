@@ -44,7 +44,7 @@ export default function BlogView() {
 
   const [blogs, setBlogs] = useState([]);
 
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -81,6 +81,7 @@ export default function BlogView() {
     if (image) {
       formData.append('file', image);
     }
+    formData.append('userId', user.id)
 
     // let data = {
     //   description: description,
@@ -103,6 +104,8 @@ export default function BlogView() {
         setSeverity('success');
         setSnackbarMessage('Blog added successfully!');
         setSnackBarOpen(true);
+        const newBlog = response.data.blog;
+        setBlogs((prev) => [...prev, newBlog]);
       }
     } catch (error) {
       console.error('Error adding blog:', error);
@@ -125,6 +128,9 @@ export default function BlogView() {
 
     fetchBlogs();
   }, []);
+
+  console.log('User', user)
+  console.log('Token', token)
 
   return (
     <Container>
@@ -168,11 +174,9 @@ export default function BlogView() {
                 onChange={handleDescriptionChange}
               /> */}
               <div className='mb-[100px] h-[300px]'>
-                return <ReactQuill theme="snow" value={description} onChange={setDescription} />
+                <h3>Description</h3>
+                <ReactQuill theme="snow" value={description} onChange={setDescription} />
               </div>
-              <br></br>
-              <br></br>
-              <br></br>
               <br></br>
               <br></br>
               <br></br>

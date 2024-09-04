@@ -11,9 +11,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if user is already logged in when the app loads
     const token = localStorage.getItem('token');
-    if (token) {
-      setUser(token);
-    }
+    // if (token) {
+    //   setUser(token);
+    // }
 
     if (!token) {
       axiosInstance
