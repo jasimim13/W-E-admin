@@ -74,7 +74,7 @@ export default function BlogView() {
     setHeading(blog.heading); // Set form values
     setCategory(blog.category);
     setDescription(blog.description);
-    setOpen(true); // Open the modal
+    setOpen(true); // Open the mo
   };
 
 
